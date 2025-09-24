@@ -1,0 +1,116 @@
+# -----------------------------
+# macOS
+# -----------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# -----------------------------
+# Xcode / Derived
+# -----------------------------
+DerivedData/
+build/
+*.xcuserstate
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.xcscmblueprint
+
+# Мы НЕ коммитим сгенерированные Xcode-проекты/воркспейсы Tuist
+*.xcodeproj
+*.xcworkspace
+
+# -----------------------------
+# Tuist
+# -----------------------------
+.tuist-bin/
+.graph/
+# Tuist генерит проект — не коммитим артефакты генерации
+# Но lock-файл пакетов Tuist оставляем в репо:
+!Tuist/Package.resolved
+
+# -----------------------------
+# Swift Package Manager
+# -----------------------------
+.swiftpm/
+.build/
+# В некоторых конфигурациях SPM кладёт резолв рядом — если появится локально:
+Package.pins
+# Общий lock обычно в Tuist/Package.resolved (его не игнорим см. выше)
+
+# -----------------------------
+# CocoaPods (если не используете — можно убрать)
+# -----------------------------
+Pods/
+*.podspec.json
+
+# -----------------------------
+# Carthage (если не используете — можно убрать)
+# -----------------------------
+Carthage/Build/
+Carthage/Checkouts/
+
+# -----------------------------
+# Fastlane / dSYM / IPA
+# -----------------------------
+fastlane/report.xml
+fastlane/test_output/
+fastlane/Preview.html
+fastlane/screenshots/
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xcarchive
+
+# -----------------------------
+# Secrets / Provisioning / Keys
+# -----------------------------
+*.mobileprovision
+*.provisionprofile
+*.cer
+*.p12
+*.pem
+*.key
+*.der
+*.crt
+*.p8
+.env
+.env.*
+# Firebase. Часто лучше хранить вне репо/через секреты CI:
+GoogleService-Info.plist
+
+# -----------------------------
+# SwiftLint / Tools caches
+# -----------------------------
+.swiftlint.cache
+.mint/
+# xcpretty artifacts (если используете)
+*.xcpretty*
+
+# -----------------------------
+# Logs / temp
+# -----------------------------
+*.log
+*.orig
+*.rej
+*.tmp
+*.swp
+*.swm
+*.swo
+*$RECYCLE.BIN/
+
+# -----------------------------
+# App-specific generated/exports (если будете экспортить PDF/превью во время dev)
+# -----------------------------
+Exported/
+Outputs/
+Snapshots/
+
+# -----------------------------
+# Xcode User Interface State
+# -----------------------------
+*.xcuserdatad

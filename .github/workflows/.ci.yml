@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  workflow_dispatch: {}
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ develop ]
+
+jobs:
+  build-test:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Select Xcode (16.x)
+        run: sudo xcode-select -switch /Applications/Xcode_16.0.app
+
+      - name: Cache Tuist
+        uses: actions/cache@v4
+        with:
+          path: ~/.tuist
+          key: tuist-${{ runner.os }}-v1
+
+      - name: Install Tuist
+        run: curl -Ls https://install.tuist.io | bash
+
+      - name: Tuist fetch & generate
+        run: |
+          tuist fetch
+          tuist generate --no-open
+
+      - name: Cache SPM
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/Library/Developer/Xcode/DerivedData
+            ~/Library/Caches/org.swift.swiftpm
+          key: spm-${{ runner.os }}-${{ hashFiles('**/Package.resolved') }}
+
+      - name: Install SwiftLint
+        run: brew install swiftlint || true
+
+      - name: SwiftLint
+        run: swiftlint
+
+       - name: Install xcpretty
+       run: gem install xcpretty
+
+      - name: Build (Debug)
+        shell: bash
+        run: |
+          set -o pipefail
+          xcodebuild -workspace Documentor.xcworkspace \
+            -scheme "Documentor-CI" \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -configuration Debug \
+            build | xcpretty
+
+      - name: Test (Debug)
+        shell: bash
+        run: |
+          set -o pipefail
+          xcodebuild -workspace Documentor.xcworkspace \
+            -scheme "Documentor-CI" \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -configuration Debug \
+            test | xcpretty
