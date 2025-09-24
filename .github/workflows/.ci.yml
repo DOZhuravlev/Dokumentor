@@ -27,12 +27,11 @@ jobs:
           brew update
           brew install tuist swiftlint
           tuist version
+          # если в репо есть .tuist-version — подтянет закреплённую версию
           tuist install || true
 
-      - name: Tuist fetch & generate
-        run: |
-          tuist fetch
-          tuist generate --no-open
+      - name: Generate project with Tuist
+        run: tuist generate --no-open
 
       - name: Install xcpretty
         run: gem install xcpretty
