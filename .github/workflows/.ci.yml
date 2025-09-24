@@ -45,8 +45,8 @@ jobs:
       - name: SwiftLint
         run: swiftlint
 
-       - name: Install xcpretty
-       run: gem install xcpretty
+      - name: Install xcpretty
+        run: gem install xcpretty
 
       - name: Build (Debug)
         shell: bash
@@ -55,7 +55,7 @@ jobs:
           xcodebuild -workspace Documentor.xcworkspace \
             -scheme "Documentor-CI" \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
             -configuration Debug \
             build | xcpretty
 
@@ -66,6 +66,6 @@ jobs:
           xcodebuild -workspace Documentor.xcworkspace \
             -scheme "Documentor-CI" \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
             -configuration Debug \
             test | xcpretty
