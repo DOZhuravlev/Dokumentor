@@ -14,9 +14,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Select Xcode (16.x)
-        run: sudo xcode-select -switch /Applications/Xcode_16.0.app
-
       - name: Cache Tuist
         uses: actions/cache@v4
         with:
@@ -52,6 +49,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
+          xcodebuild -version
           xcodebuild -workspace Documentor.xcworkspace \
             -scheme "Documentor-CI" \
             -sdk iphonesimulator \
