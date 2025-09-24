@@ -27,8 +27,9 @@ jobs:
           brew update
           brew install tuist swiftlint
           tuist version
-          # если в репо есть .tuist-version — подтянет закреплённую версию
-          tuist install || true
+
+      - name: Tuist install (resolve external deps)
+        run: tuist install
 
       - name: Generate project with Tuist
         run: tuist generate --no-open
