@@ -14,20 +14,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cache Tuist
-        uses: actions/cache@v4
-        with:
-          path: ~/.tuist
-          key: tuist-${{ runner.os }}-v1
-
-      - name: Install Tuist
-        run: curl -Ls https://install.tuist.io | bash
-
-      - name: Tuist fetch & generate
-        run: |
-          tuist fetch
-          tuist generate --no-open
-
       - name: Cache SPM
         uses: actions/cache@v4
         with:
@@ -36,11 +22,17 @@ jobs:
             ~/Library/Caches/org.swift.swiftpm
           key: spm-${{ runner.os }}-${{ hashFiles('**/Package.resolved') }}
 
-      - name: Install SwiftLint
-        run: brew install swiftlint || true
+      - name: Install Tuist & SwiftLint
+        run: |
+          brew update
+          brew install tuist swiftlint
+          tuist version
+          tuist install || true
 
-      - name: SwiftLint
-        run: swiftlint
+      - name: Tuist fetch & generate
+        run: |
+          tuist fetch
+          tuist generate --no-open
 
       - name: Install xcpretty
         run: gem install xcpretty
