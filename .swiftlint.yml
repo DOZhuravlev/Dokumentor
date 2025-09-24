@@ -1,12 +1,14 @@
 # .swiftlint.yml
+
 included:
-  - Projects
-  - Documentor
+  - "Projects"
+  - "Documentor"
+
 excluded:
-  - **/Generated
-  - **/*.gen.swift
-  - **/Build
-  - **/.tuist-bin
+  - "**/Generated"
+  - "**/*.gen.swift"
+  - "**/Build"
+  - "**/.tuist-bin"
 
 indentation: 4
 line_length:
@@ -27,8 +29,8 @@ function_body_length:
 disabled_rules:
   - trailing_whitespace
   - cyclomatic_complexity
-  - todo           # включи позже, если хотите строгости по TODO
-  - force_cast     # можно включить, когда очистим места с форс-кастами
+  - todo
+  - force_cast
   - force_try
 
 opt_in_rules:
@@ -45,6 +47,6 @@ opt_in_rules:
 
 identifier_name:
   min_length: 2
-  excluded: [id, x, y, dx, dy, at, to, in]  # частые короткие имена в UIKit
+  excluded: ["id", "x", "y", "dx", "dy", "at", "to", "in"]
 
 reporter: "xcode"
